@@ -53,7 +53,7 @@ class DataGridExtension extends AbstractExtension implements GlobalsInterface
     /**
      * @var array
      */
-    protected $names;
+    protected $names = [];
 
     /**
      * @var array
@@ -241,7 +241,7 @@ class DataGridExtension extends AbstractExtension implements GlobalsInterface
     {
         $value = $column->renderCell($row->getField($column->getId()), $row, $this->router);
 
-        $id = $this->names[$grid->getHash()];
+        $id = $this->names[$grid->getHash()] ?? '';
 
         if (($id != '' && ($this->hasBlock($environment, $block = 'grid_' . $id . '_column_' . $column->getRenderBlockId() . '_cell')
                     || $this->hasBlock($environment, $block = 'grid_' . $id . '_column_' . $column->getType() . '_cell')
@@ -273,7 +273,7 @@ class DataGridExtension extends AbstractExtension implements GlobalsInterface
      */
     public function getGridFilter(Environment $environment, $column, $grid, $submitOnChange = true)
     {
-        $id = $this->names[$grid->getHash()];
+        $id = $this->names[$grid->getHash()] ?? '';
 
         if ((('' != $id && ($this->hasBlock(
                             $environment,
